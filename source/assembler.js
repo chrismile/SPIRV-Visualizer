@@ -206,6 +206,12 @@ function assemble(spirvText, version) {
                     const specKind = specInstruction.operands[i].kind;
                     GetOperand(specKind);
                 }
+                while (lineIndex < line.length) {
+                    // Things like VectorShuffle have a optional length we need to handle
+                    let lastOperand = specInstruction.operands.length - 1;
+                    const specKind = specInstruction.operands[lastOperand].kind;
+                    GetOperand(specKind);
+                }
             } else if (kind == 'LiteralContextDependentNumber') {
                 const typeId = idMap.get(line[lineIndex - 1])
                 const bitWidthInt = parseInt(bitWidthIntMap.get(typeId));
